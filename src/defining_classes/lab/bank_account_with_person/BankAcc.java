@@ -17,6 +17,10 @@ public class BankAcc {
     return this.balance;
   }
   
+  public int getId() {
+    return this.id;
+  }
+  
   public static void setInterest(double interest) {
     rate = interest;
   }
