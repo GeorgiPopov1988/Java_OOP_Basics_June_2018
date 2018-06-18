@@ -1,4 +1,4 @@
-package encapsulation.lab.sort_by_name_and_age;
+package encapsulation.lab.sort_increase_validate_add_to_team;
 
 import java.io.BufferedReader;
 import java.io.IOException;

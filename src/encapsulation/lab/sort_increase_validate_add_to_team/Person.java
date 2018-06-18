@@ -1,4 +1,4 @@
-package encapsulation.lab.sort_by_name_and_age;
+package encapsulation.lab.sort_increase_validate_add_to_team;
 
 public class Person {
   private String firstName;
