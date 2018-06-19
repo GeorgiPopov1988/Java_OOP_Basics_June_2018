@@ -1,6 +1,7 @@
 package encapsulation.exercises.shopping_spree;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,32 +11,34 @@ public class Main {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     
     Map<String, Person> people = new LinkedHashMap<>();
-    createAndAddPeople(reader, people);
-    
     Map<String, Product> products = new LinkedHashMap<>();
-    createAndAddProducts(reader, products);
   
-    String inLine = reader.readLine();
-    
-    while (!"END".equals(inLine)) {
-      String[] inTokens = inLine.split("\\s+");
-      String personName = inTokens[0];
-      String productName = inTokens[1];
-      
-      if (people.containsKey(personName)) {
-        if (products.containsKey(productName)) {
-          
-          Person person = people.get(personName);
-          Product product = products.get(productName);
+    try {
   
-            person.buyProduct(product);
-          
-        }
-      }
-      
-      inLine = reader.readLine();
+      createAndAddPeople(reader, people);
+      createAndAddProducts(reader, products);
+      buyingProducts(reader, people, products);
+      print(people);
+  
+    } catch (IllegalArgumentException iae) {
+      System.out.println(iae.getMessage());
     }
+    
+    // for (Map.Entry<String, Person> personMap : people.entrySet()) {
+    //   String personName = personMap.getKey();
+    //   if (personMap.getValue().getProducts().size() > 0) {
+    //     List<Product> list = personMap.getValue().getProducts();
+    //
+    //     System.out.print(personName + " - ");
+    //     System.out.println(String.join(", ", list.stream().map(p -> p.getName()).toArray(String[] :: new)));
+    //
+    //   }
+    // }
+    
+    
+  }
   
+  private static void print(Map<String, Person> people) {
     for (Map.Entry<String, Person> map : people.entrySet()) {
       Person person = map.getValue();
       if (person.getProducts().size() > 0) {
@@ -44,19 +47,28 @@ public class Main {
         System.out.printf("%s - Nothing bought", person.getName());
       }
     }
+  }
+  
+  private static void buyingProducts(BufferedReader reader, Map<String, Person> people, Map<String, Product> products) throws IOException {
+    String inLine = reader.readLine();
     
-   // for (Map.Entry<String, Person> personMap : people.entrySet()) {
-   //   String personName = personMap.getKey();
-   //   if (personMap.getValue().getProducts().size() > 0) {
-   //     List<Product> list = personMap.getValue().getProducts();
-   //
-   //     System.out.print(personName + " - ");
-   //     System.out.println(String.join(", ", list.stream().map(p -> p.getName()).toArray(String[] :: new)));
-   //
-   //   }
-   // }
-   
-   
+    while (!"END".equals(inLine)) {
+      String[] inTokens = inLine.split("\\s+");
+      String personName = inTokens[0];
+      String productName = inTokens[1];
+  
+      if (people.containsKey(personName)) {
+        if (products.containsKey(productName)) {
+      
+          Person person = people.get(personName);
+          Product product = products.get(productName);
+          
+          System.out.println(person.buyProduct(product));
+        }
+      }
+  
+      inLine = reader.readLine();
+    }
   }
   
   private static void createAndAddProducts(BufferedReader reader, Map<String, Product> products) throws Exception {
@@ -65,17 +77,13 @@ public class Main {
     for (int i = 0; i < tokens.length; i++) {
       Product product = null;
       String[] inPersonTokens = tokens[i].split("=");
-    
-      try {
-        String name = inPersonTokens[0];
-        double price = Double.parseDouble(inPersonTokens[1]);
-        product = new Product(name, price);
-        
-        products.put(name, product);
-        
-      } catch (IllegalArgumentException iae) {
-        System.out.println(iae.getMessage());
-      }
+      
+      String name = inPersonTokens[0];
+      double price = Double.parseDouble(inPersonTokens[1]);
+      product = new Product(name, price);
+      
+      products.put(name, product);
+      
     }
   }
   
@@ -86,14 +94,10 @@ public class Main {
       Person person = null;
       String[] inPersonTokens = tokens[i].split("=");
       String name = inPersonTokens[0];
-      int money = Integer.parseInt(inPersonTokens[1]);
-  
-      try {
-        person = new Person(name, money);
-        people.put(name, person);
-      } catch (IllegalArgumentException iae) {
-        System.out.println(iae.getMessage());
-      }
+      double money = Double.parseDouble(inPersonTokens[1]);
+      
+      person = new Person(name, money);
+      people.put(name, person);
       
     }
   }

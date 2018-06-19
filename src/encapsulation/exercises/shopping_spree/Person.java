@@ -5,20 +5,20 @@ import java.util.List;
 
 public class Person {
   private String name;
-  private int money;
+  private double money;
   private List<Product> products;
   
-  public Person(String name, int money) {
-    setName(name);
-    setMoney(money);
+  public Person(String name, double money) {
+    this.setName(name);
+    this.setMoney(money);
     this.products = new ArrayList<>();
   }
   
   private void setName(String name) {
-    if (name.length() > 1) {
-      this.name = name;
-    } else {
+    if (name == null || name.trim().length() == 0) {
       throw new IllegalArgumentException("Name cannot be empty");
+    } else {
+      this.name = name;
     }
   }
   
@@ -26,7 +26,7 @@ public class Person {
     return this.name;
   }
   
-  private void setMoney(int money) {
+  private void setMoney(double money) {
     if (money < 0) {
       throw new IllegalArgumentException("Money cannot be negative");
     } else {
@@ -42,15 +42,17 @@ public class Person {
     return this.products;
   }
   
-  public void buyProduct(Product product){
-    
+  public String buyProduct(Product product){
+    String buyResult = "";
     if (this.getMoney() < product.getPrice()) {
-      System.out.printf("%s can't afford %s%n", this.getName(), product.getName());
+      buyResult = String.format("%s can't afford %s", this.getName(), product.getName());
     } else {
       this.getProducts().add(product);
       this.money -= product.getPrice();
-      System.out.println(this.getName() + " bought " + product.getName());
+      buyResult = this.getName() + " bought " + product.getName();
     }
+    
+    return  buyResult;
   }
   
   @Override

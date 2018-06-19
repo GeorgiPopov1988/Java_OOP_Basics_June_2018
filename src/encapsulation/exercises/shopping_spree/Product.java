@@ -5,15 +5,16 @@ public class Product {
   private double price;
   
   public Product(String name, double price) {
-    setName(name);
-    setPrice(price);
+    this.setName(name);
+    this.setPrice(price);
   }
   
   private void setName(String name) {
-    if (!name.trim().isEmpty() && name.length() == 1) {
+    if (name == null || name.trim().length() == 0) {
       throw new IllegalArgumentException("Name cannot be empty");
+    } else {
+      this.name = name;
     }
-    this.name = name;
   }
   
   public String getName() {
