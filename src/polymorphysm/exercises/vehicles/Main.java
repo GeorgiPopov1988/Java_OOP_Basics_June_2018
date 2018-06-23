@@ -33,37 +33,36 @@ public class Main {
       
       switch (command) {
         case "Drive":
-          try {
-            switch (vehicleType) {
-              case "Car":
-                car.drive(parameter);
-                System.out.printf("Car travelled %s km%n", decimalFormat.format(parameter));
-                break;
-              case "Truck":
-                truck.drive(parameter);
-                System.out.printf("Truck travelled %s km%n", decimalFormat.format(parameter));
-                break;
+          if ("Car".equalsIgnoreCase(vehicleType)) {
+            try {
+              car.drive(parameter);
+              System.out.printf("Car travelled %s km%n", decimalFormat.format(parameter));
+            } catch (IllegalArgumentException iae){
+              System.out.println(iae.getMessage());
             }
-          } catch (IllegalArgumentException iae) {
-            System.out.println(iae.getMessage());
-          }
-            break;
-        case "Refuel":
-          switch (vehicleType) {
-            case "Car":
-              car.refueled(parameter);
-              break;
-            case "Truck":
-              truck.refueled(parameter);
-              break;
+          } else {
+            try {
+              truck.drive(parameter);
+              System.out.printf("Truck travelled %s km%n", decimalFormat.format(parameter));
+            } catch (IllegalArgumentException iae){
+              System.out.println(iae.getMessage());
+            }
           }
           break;
-        
+        case "Refuel":
+          if ("Car".equalsIgnoreCase(vehicleType)) {
+            car.refuel(parameter);
+          } else {
+            truck.refuel(parameter);
+          }
+          
+          break;
       }
+      
     }
     
     System.out.printf("Car: %.2f%n", car.getFuel());
     System.out.printf("Truck: %.2f%n", truck.getFuel());
-  
+    
   }
 }

@@ -1,30 +1,31 @@
 package polymorphysm.exercises.vehicles;
 
 public abstract class Vehicle {
+  private double fuel;
+  private double consumption;
   
-  protected double fuelQuantity;
-  protected double consumptionLitersPerKm;
-  
-  public Vehicle(double fuelQuantity, double consumptionLitersPerKm) {
-    this.setFuelQuantity(fuelQuantity);
-    this.setConsumptionLitersPerKm(consumptionLitersPerKm);
+  public Vehicle(double fuel, double consumption) {
+    this.setFuel(fuel);
+    this.setConsumption(consumption);
   }
   
-  protected abstract void setConsumptionLitersPerKm(double consumptionLitersPerKm);
-  
-  protected abstract void setFuelQuantity(double fuelQuantity);
-  
-  protected abstract void refueled(double liters);
-  
-  public double getFuel() {
-    return this.fuelQuantity;
+  private void setConsumption(double consumption) {
+    this.consumption = consumption;
   }
   
-  protected void drive(double distance) {
-    if (this.fuelQuantity > distance * this.consumptionLitersPerKm) {
-      this.fuelQuantity -= distance * this.consumptionLitersPerKm;
-    } else {
-      throw new IllegalArgumentException();
-    }
+  protected void setFuel(double fuel) {
+    this.fuel = fuel;
+  }
+  
+  protected double getFuel() {
+    return this.fuel;
+  }
+  
+  public abstract void drive(double distance);
+  
+  public abstract void refuel(double fuel);
+  
+  protected final double getConsumption() {
+    return this.consumption;
   }
 }
