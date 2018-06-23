@@ -24,7 +24,7 @@ public class Main {
     }
   
     for (Rectangle rectangle : listOfRectangles) {
-      System.out.println(rectangle.calculateArea());
+      System.out.println(rectangle.getArea());
     }
   
   
