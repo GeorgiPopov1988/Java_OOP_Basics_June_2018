@@ -14,10 +14,11 @@ public class Car extends Vehicle {
   
   @Override
   public void drive(double distance) {
-    if (super.getFuel() < super.getConsumption() * distance) {
+    try {
+      super.drive(distance);
+  
+    }catch (IllegalArgumentException iae) {
       throw new IllegalArgumentException("Car needs refueling");
-    } else {
-      super.setFuel(super.getFuel() - distance * super.getConsumption());
     }
   }
   

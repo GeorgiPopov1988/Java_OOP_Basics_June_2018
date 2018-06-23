@@ -21,11 +21,17 @@ public abstract class Vehicle {
     return this.fuel;
   }
   
-  public abstract void drive(double distance);
-  
-  public abstract void refuel(double fuel);
-  
   protected final double getConsumption() {
     return this.consumption;
   }
+  
+  public void drive(double distance){
+    if (this.getFuel() < this.getConsumption() * distance) {
+      throw new IllegalArgumentException();
+    } else {
+      this.setFuel(this.getFuel() - distance * this.getConsumption());
+    }
+  }
+  
+  public abstract void refuel(double fuel);
 }
