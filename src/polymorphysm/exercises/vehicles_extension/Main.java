@@ -12,9 +12,6 @@ public class Main {
     // Vehicle {initial fuel quantity} {liters per km} {tank capacity}
   
     String[] vehicleTokens = reader.readLine().split(" ");
-    double fuel;
-    double consuption;
-    double capacity;
     Vehicle car = createCar(vehicleTokens);
     Vehicle truck = createTruck(reader);
     Vehicle bus = createBus(reader);
@@ -75,19 +72,24 @@ public class Main {
         break;
       case "DriveEmpty":
         vehicle.setConsumption(vehicle.getConsumption() - 1.4);
+        
         try {
           vehicle.drive(parameter);
-          
           System.out.printf("%s travelled %s km%n"
                   , vehicle.getClass().getSimpleName(), decimalFormat.format(parameter));
-          
+  
         } catch (IllegalArgumentException iae) {
           System.out.println(iae.getMessage());
         }
+        
+        vehicle.setConsumption(vehicle.getConsumption() + 1.4);
+        
         break;
       case "Refuel":
         try {
           vehicle.refuel(parameter);
+         // System.out.printf("%s refuel %s km%n"
+         //         , vehicle.getClass().getSimpleName(), decimalFormat.format(vehicle.getFuel()));
         } catch (IllegalArgumentException iae) {
           System.out.println(iae.getMessage());
         }

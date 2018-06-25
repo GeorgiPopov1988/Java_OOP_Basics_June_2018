@@ -4,13 +4,13 @@ public class Truck extends Vehicle {
   private final static double INCREASED_TRUCK_CONSUMPTION = 1.6d;
   private final static double FUEL_LOSS = 0.95d;
   
-  public Truck(double fuel, double consumption, double tankCapacity) {
-    super(fuel, consumption + INCREASED_TRUCK_CONSUMPTION, tankCapacity);
+  public Truck(double fuel, double consumption, double capacity) {
+    super(fuel, consumption + INCREASED_TRUCK_CONSUMPTION, capacity);
   }
   
   @Override
   public void refuel(double fuel) {
-    fuel *= INCREASED_TRUCK_CONSUMPTION;
+    fuel = fuel * FUEL_LOSS;
     super.refuel(fuel);
   }
   

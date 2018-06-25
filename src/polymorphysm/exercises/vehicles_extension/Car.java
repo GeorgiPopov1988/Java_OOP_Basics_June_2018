@@ -3,8 +3,8 @@ package polymorphysm.exercises.vehicles_extension;
 public class Car extends Vehicle {
   private final static double INCREASED_CAR_CONSUMPTION = 0.9d;
   
-  public Car(double fuel, double consumption, double tankCapacity) {
-    super(fuel, consumption + INCREASED_CAR_CONSUMPTION, tankCapacity);
+  public Car(double fuel, double consumption, double capacity) {
+    super(fuel, consumption + INCREASED_CAR_CONSUMPTION, capacity);
   }
   
   @Override
