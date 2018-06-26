@@ -20,20 +20,23 @@ public class Main {
     
         while (true) {
           String[] animalTokens = reader.readLine().split(" ");
+          
           if (animalTokens[0].equals("End")) {
             break;
           }
+          
           String[] foodTokens = reader.readLine().split(" ");
-        
-            Animal animal = createAnimal(animalTokens);
+          Food food = createFood(foodTokens);
+  
+          Animal animal = createAnimal(animalTokens, food);
             
-            Food food = createFood(foodTokens);
             
-            try {
-              animal.eat(food);
-            } catch (IllegalArgumentException iae) {
-              System.out.println(iae.getMessage());
-            }
+            //try {
+            //  animal.eat(food);
+            //} catch (IllegalArgumentException iae) {
+            //  System.out.println(iae.getMessage());
+            //}
+            
             if (animal != null) {
               animals.add(animal);
             }
@@ -41,7 +44,7 @@ public class Main {
         }
    
     for (Animal animal : animals) {
-      System.out.println(animal);
+      System.out.print(animal);
     }
     
     
@@ -64,7 +67,7 @@ public class Main {
     return food;
   }
   
-  private static Animal createAnimal(String[] animalTokens) throws IOException {
+  private static Animal createAnimal(String[] animalTokens, Food food) throws IOException {
     
     //  {AnimalType} {AnimalName} {AnimalWeight} {AnimalLivingRegion} [{CatBreed} = Only if its cat]
     String animalType = animalTokens[0];
@@ -78,6 +81,7 @@ public class Main {
         try {
           animal = new Cat(animalName, animalType, animalWeight, 0, animalLivingRegion, breed);
           animal.makeSound();
+          animal.eat(food);
         } catch (IllegalArgumentException iae) {
           System.out.println(iae.getMessage());
         }
@@ -86,6 +90,7 @@ public class Main {
         try {
           animal = new Mouse(animalName, animalType, animalWeight, 0, animalLivingRegion);
           animal.makeSound();
+          animal.eat(food);
         }  catch (IllegalArgumentException iae) {
           System.out.println(iae.getMessage());
         }
@@ -94,6 +99,7 @@ public class Main {
         try {
           animal = new Tiger(animalName, animalType, animalWeight, 0, animalLivingRegion);
           animal.makeSound();
+          animal.eat(food);
         }  catch (IllegalArgumentException iae) {
           System.out.println(iae.getMessage());
         }
@@ -102,6 +108,7 @@ public class Main {
         try {
           animal = new Zebra(animalName, animalType, animalWeight, 0, animalLivingRegion);
           animal.makeSound();
+          animal.eat(food);
         }  catch (IllegalArgumentException iae) {
           System.out.println(iae.getMessage());
         }
