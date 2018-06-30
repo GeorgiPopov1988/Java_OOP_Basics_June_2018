@@ -31,8 +31,9 @@ public class LeutenantGeneralImpl extends  PrivateImpl implements LeutenantGener
     leutenant.append("Privates:");
   
     LinkedHashSet<Private> sorted = privates.stream()
-            .sorted((p1, p2) -> p2.getId().compareTo(p2.getId()))
+            .sorted((p1, p2) -> p2.getId().compareTo(p1.getId()))
             .collect(Collectors.toCollection(LinkedHashSet::new));
+    
     for (Private aPrivate : sorted) {
       leutenant.append(System.lineSeparator())
               .append("  " + aPrivate);
